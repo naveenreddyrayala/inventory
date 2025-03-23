@@ -1,6 +1,18 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>Home</h1>
-    <p>Welcome to my app!</p>
+<form method="post" action="todos"></form></form>
+    {% csrf_token %}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+{% if error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+{% endif %}
 {% endblock %}
