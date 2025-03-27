@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.http import HttpResponse
 from .models import TodoItem, ToDoList, Item
+from .forms import CreateNewList
 
 # Create your views here.
 def home(request):
@@ -10,13 +11,19 @@ def todos(request):
     items = TodoItem.objects.all()
     return render(request, "todos.html", {"todos": items})
 
-def index(request, id):
-    ls = ToDoList.objects.get(id=id)
-    item = ls.item_set.get(id=1)
-    return HttpResponse("<h1>%s</h1><br><p>%s</>p" %(ls.name, str(item.text)))
-
 def about(request):
     return render(request, "about.html")
 
 def contact(request):
     return render(request, "contact.html")
+
+def index(response, id):
+    ls = ToDoList.objects.get(id=id)
+    return render(response, 'myapp/list.html', {"ls":ls})
+
+def home(response):
+    return render(response, 'myapp/home.html', {})
+
+def create(response):
+    form = CreateNewList()
+    return render(response, 'myapp/create.html', {"form": form})
